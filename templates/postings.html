@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Postings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        /* Custom Styles */
+        :root {
+            --primary-color: #582c7c; /* Purple */
+            --secondary-color: #6c757d; /* Grey */
+            --background-color: #f8f9fa; /* Light Grey */
+            --text-color: #343a40; /* Dark Grey */
+        }
+
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+
+        .navbar, .footer {
+            background-color: var(--primary-color) !important;
+        }
+
+
+        .navbar .nav-link, .footer p {
+            color: white !important;
+        }
+
+
+        .card {
+            border: none;
+            margin-bottom: 1.5rem;
+        }
+
+
+        .card-title {
+            color: var(--primary-color);
+        }
+
+
+        .btn-primary {
+            background-color: var(--primary-color) !important;
+            border-color: var(--primary-color) !important;
+        }
+
+
+        .btn-primary:hover {
+            background-color: #472369 !important; /* Darker Purple */
+            border-color: #472369 !important;
+        }
+
+
+        .application-form {
+            display: none;
+            margin-top: 1rem;
+        }
+    </style>
+    <script>
+        function toggleForm(postingId) {
+            const form = document.getElementById(`apply-form-${postingId}`);
+            form.style.display = form.style.display === "block" ? "none" : "block";
+        }
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="/">
+                <img src="/static/images/743174.png" alt="Logo" height="40" class="me-2">
+                <span style="color: white; font-weight: bold;">Job Portal</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/submit">Employer Submission</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/postings">Job Postings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin">Admin Panel</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <header class="text-white text-center py-5" style="background-color: var(--primary-color);">
+        <div class="container">
+            <h1>Job Postings</h1>
+            <p class="lead">Explore approved job opportunities and start applying today!</p>
+        </div>
+    </header>
+
+
+    <main class="container my-5">
+        <div class="row">
+            <!-- Example of a single job posting card -->
+            {% for posting in postings %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ posting.job_title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ posting.company_name }}</h6>
+                        <p class="card-text">{{ posting.description }}</p>
+                        <p class="text-muted"><strong>Location:</strong> {{ posting.location }}</p>
+                        <p class="text-muted"><strong>Contact:</strong> {{ posting.contact_email }}</p>
+                        <button class="btn btn-primary" onclick="toggleForm({{ posting.id }})">Apply Now</button>
+
+
+                        <!-- Application Form -->
+                        <div id="apply-form-{{ posting.id }}" class="application-form">
+                            <form action="/apply/{{ posting.id }}" method="POST">
+                                <div class="mb-3">
+                                    <label for="name-{{ posting.id }}" class="form-label">Your Name</label>
+                                    <input type="text" class="form-control" id="name-{{ posting.id }}" name="name" placeholder="e.g., John Doe" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email-{{ posting.id }}" class="form-label">Your Email</label>
+                                    <input type="email" class="form-control" id="email-{{ posting.id }}" name="email" placeholder="e.g., john.doe@example.com" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="resume-{{ posting.id }}" class="form-label">Resume</label>
+                                    <textarea class="form-control" id="resume-{{ posting.id }}" name="resume" rows="4" placeholder="Briefly describe your qualifications" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit Application</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+
+        <!-- No postings message -->
+        {% if postings|length == 0 %}
+        <div class="text-center">
+            <p class="lead">No job postings are currently available. Check back later!</p>
+        </div>
+        {% endif %}
+    </main>
+
+
+    <footer class="footer text-center py-3">
+        <div class="container">
+            <p class="mb-0">© 2025 Arizona College Prep High School Guidance Department</p>
+            <p class="credits">Created by: Ramin Ismail</p>
+        </div>
+    </footer>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
