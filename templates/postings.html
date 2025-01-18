@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job Postings</title>
+    <link rel="stylesheet" href="/static/css/style.css"> <!-- Add your custom styles here -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <style>
         /* Custom Styles */
@@ -14,57 +15,38 @@
             --text-color: #343a40; /* Dark Grey */
         }
 
-
         body {
             background-color: var(--background-color);
             color: var(--text-color);
         }
 
-
         .navbar, .footer {
             background-color: var(--primary-color) !important;
         }
 
-
         .navbar .nav-link, .footer p {
             color: white !important;
         }
-
-
-        .card {
-            border: none;
-            margin-bottom: 1.5rem;
-        }
-
-
-        .card-title {
-            color: var(--primary-color);
-        }
-
 
         .btn-primary {
             background-color: var(--primary-color) !important;
             border-color: var(--primary-color) !important;
         }
 
-
         .btn-primary:hover {
             background-color: #472369 !important; /* Darker Purple */
             border-color: #472369 !important;
         }
 
+        .card {
+            border: none;
+        }
 
-        .application-form {
-            display: none;
-            margin-top: 1rem;
+        .card-title {
+            color: var(--primary-color);
         }
     </style>
-    <script>
-        function toggleForm(postingId) {
-            const form = document.getElementById(`apply-form-${postingId}`);
-            form.style.display = form.style.display === "block" ? "none" : "block";
-        }
-    </script>
+    <link rel="icon" href="/static/images/743174.png"> <!-- Adding your image as favicon -->
 </head>
 <body>
     <nav class="navbar navbar-expand-lg">
@@ -91,73 +73,29 @@
             </div>
         </div>
     </nav>
-
-
-    <header class="text-white text-center py-5" style="background-color: var(--primary-color);">
-        <div class="container">
-            <h1>Job Postings</h1>
-            <p class="lead">Explore approved job opportunities and start applying today!</p>
-        </div>
+    <header class="text-center py-5" style="background-color: #582c7c; color: white;">
+        <h1>Available Job Postings</h1>
     </header>
-
-
     <main class="container my-5">
         <div class="row">
-            <!-- Example of a single job posting card -->
-            {% for posting in postings %}
-            <div class="col-md-6 col-lg-4">
-                <div class="card">
+            {% for job in jobs %}
+            <div class="col-md-4">
+                <div class="card mb-4">
                     <div class="card-body">
-                        <h5 class="card-title">{{ posting.job_title }}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">{{ posting.company_name }}</h6>
-                        <p class="card-text">{{ posting.description }}</p>
-                        <p class="text-muted"><strong>Location:</strong> {{ posting.location }}</p>
-                        <p class="text-muted"><strong>Contact:</strong> {{ posting.contact_email }}</p>
-                        <button class="btn btn-primary" onclick="toggleForm({{ posting.id }})">Apply Now</button>
-
-
-                        <!-- Application Form -->
-                        <div id="apply-form-{{ posting.id }}" class="application-form">
-                            <form action="/apply/{{ posting.id }}" method="POST">
-                                <div class="mb-3">
-                                    <label for="name-{{ posting.id }}" class="form-label">Your Name</label>
-                                    <input type="text" class="form-control" id="name-{{ posting.id }}" name="name" placeholder="e.g., John Doe" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="email-{{ posting.id }}" class="form-label">Your Email</label>
-                                    <input type="email" class="form-control" id="email-{{ posting.id }}" name="email" placeholder="e.g., john.doe@example.com" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="resume-{{ posting.id }}" class="form-label">Resume</label>
-                                    <textarea class="form-control" id="resume-{{ posting.id }}" name="resume" rows="4" placeholder="Briefly describe your qualifications" required></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Submit Application</button>
-                            </form>
-                        </div>
+                        <h5 class="card-title">{{ job.title }}</h5>
+                        <p class="card-text"><strong>Location:</strong> {{ job.location }}</p>
+                        <p class="card-text"><strong>Company:</strong> {{ job.company }}</p>
+                        <p class="card-text"><strong>Contact:</strong> {{ job.email }}</p>
+                        <a href="mailto:{{ job.email }}" class="btn btn-primary">Apply Now</a>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
-
-
-        <!-- No postings message -->
-        {% if postings|length == 0 %}
-        <div class="text-center">
-            <p class="lead">No job postings are currently available. Check back later!</p>
-        </div>
-        {% endif %}
     </main>
-
-
-    <footer class="footer text-center py-3">
-        <div class="container">
-            <p class="mb-0">© 2025 Arizona College Prep High School Guidance Department</p>
-            <p class="credits">Created by: Ramin Ismail</p>
-        </div>
+    <footer class="text-center py-3" style="background-color: #582c7c; color: white;">
+        <p>&copy; 2025 Arizona College Prep High School Guidance Department</p>
     </footer>
-
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

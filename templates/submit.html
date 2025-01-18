@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submit a Job Posting</title>
+    <title>Guidance Department Job Portal</title>
+    <link rel="stylesheet" href="/static/css/style.css"> <!-- Add your custom styles here -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <style>
         /* Custom Styles */
@@ -38,13 +38,15 @@
             border-color: #472369 !important;
         }
 
-        .form-container {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        .card {
+            border: none;
+        }
+
+        .card-title {
+            color: var(--primary-color);
         }
     </style>
+    <link rel="icon" href="/static/images/743174.png"> <!-- Adding your image as favicon -->
 </head>
 <body>
     <nav class="navbar navbar-expand-lg">
@@ -71,55 +73,38 @@
             </div>
         </div>
     </nav>
-
-    <header class="text-white text-center py-5" style="background-color: var(--primary-color);">
-        <div class="container">
-            <h1>Submit a Job Posting</h1>
-            <p class="lead">Connect with talented students by sharing your job opportunities.</p>
-        </div>
+    <header class="text-center py-5" style="background-color: #582c7c; color: white;">
+        <h1>Submit a Job Posting</h1>
     </header>
-
     <main class="container my-5">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="form-container">
-                    <form action="/submit" method="POST">
-                        <div class="mb-3">
-                            <label for="jobTitle" class="form-label">Job Title</label>
-                            <input type="text" class="form-control" id="jobTitle" name="job_title" placeholder="e.g., Software Engineer Intern" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="companyName" class="form-label">Company Name</label>
-                            <input type="text" class="form-control" id="companyName" name="company_name" placeholder="e.g., Tech Solutions Inc." required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="location" class="form-label">Location</label>
-                            <input type="text" class="form-control" id="location" name="location" placeholder="e.g., Phoenix, AZ" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="description" class="form-label">Job Description</label>
-                            <textarea class="form-control" id="description" name="description" rows="5" placeholder="Describe the job responsibilities, requirements, and benefits." required></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="contactEmail" class="form-label">Contact Email</label>
-                            <input type="email" class="form-control" id="contactEmail" name="contact_email" placeholder="e.g., hr@techsolutions.com" required>
-                        </div>
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-primary">Submit Job Posting</button>
-                        </div>
-                    </form>
-                </div>
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h2>Job Details</h2>
+                <form method="POST" action="/submit">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Job Title</label>
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Enter the job title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" class="form-control" id="location" name="location" placeholder="Enter the job location" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="company" class="form-label">Company Name</label>
+                        <input type="text" class="form-control" id="company" name="company" placeholder="Enter the company name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Employer Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email address" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Job</button>
+                </form>
             </div>
         </div>
     </main>
-
-    <footer class="footer text-center py-3">
-        <div class="container">
-            <p class="mb-0">© 2025 Arizona College Prep High School Guidance Department</p>
-            <p class="credits">Created by: Ramin Ismail</p>
-        </div>
+    <footer class="text-center py-3" style="background-color: #582c7c; color: white;">
+        <p>&copy; 2025 Arizona College Prep High School Guidance Department</p>
     </footer>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

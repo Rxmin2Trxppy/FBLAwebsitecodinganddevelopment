@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
+    <title>Guidance Department Job Portal</title>
+    <link rel="stylesheet" href="/static/css/style.css"> <!-- Add your custom styles here -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <style>
         /* Custom Styles */
@@ -14,52 +15,38 @@
             --text-color: #343a40; /* Dark Grey */
         }
 
-
         body {
             background-color: var(--background-color);
             color: var(--text-color);
         }
 
-
         .navbar, .footer {
             background-color: var(--primary-color) !important;
         }
-
 
         .navbar .nav-link, .footer p {
             color: white !important;
         }
 
-
-        .table thead {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-
-        .btn-approve {
+        .btn-primary {
             background-color: var(--primary-color) !important;
             border-color: var(--primary-color) !important;
         }
 
-
-        .btn-approve:hover {
+        .btn-primary:hover {
             background-color: #472369 !important; /* Darker Purple */
             border-color: #472369 !important;
         }
 
-
-        .btn-delete {
-            background-color: #dc3545 !important; /* Red */
-            border-color: #dc3545 !important;
+        .card {
+            border: none;
         }
 
-
-        .btn-delete:hover {
-            background-color: #b02a37 !important; /* Darker Red */
-            border-color: #b02a37 !important;
+        .card-title {
+            color: var(--primary-color);
         }
     </style>
+    <link rel="icon" href="/static/images/743174.png"> <!-- Adding your image as favicon -->
 </head>
 <body>
     <nav class="navbar navbar-expand-lg">
@@ -87,44 +74,38 @@
         </div>
     </nav>
 
-
-    <header class="text-white text-center py-5" style="background-color: var(--primary-color);">
-        <div class="container">
-            <h1>Manage Job Postings</h1>
-            <p class="lead">Review, approve, or delete job postings submitted by employers.</p>
-        </div>
+    <header class="text-center py-5" style="background-color: #582c7c; color: white;">
+        <h1>Admin Panel</h1>
     </header>
-
-
     <main class="container my-5">
+        <h2>Manage Job Postings</h2>
         <div class="table-responsive">
-            <table class="table table-bordered table-hover">
+            <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Job Title</th>
-                        <th>Company Name</th>
-                        <th>Description</th>
                         <th>Location</th>
-                        <th>Contact Email</th>
+                        <th>Company Name</th>
+                        <th>Employer Email</th>
+                        <th>Approved</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for posting in postings %}
+                    {% for job in jobs %}
                     <tr>
-                        <td>{{ posting.id }}</td>
-                        <td>{{ posting.job_title }}</td>
-                        <td>{{ posting.company_name }}</td>
-                        <td>{{ posting.description }}</td>
-                        <td>{{ posting.location }}</td>
-                        <td>{{ posting.contact_email }}</td>
+                        <td>{{ job.id }}</td>
+                        <td>{{ job.title }}</td>
+                        <td>{{ job.location }}</td>
+                        <td>{{ job.company }}</td>
+                        <td>{{ job.email }}</td>
+                        <td>{{ 'Yes' if job.is_approved else 'No' }}</td>
                         <td>
-                            <form action="/admin/approve/{{ posting.id }}" method="POST" style="display:inline;">
-                                <button class="btn btn-sm btn-approve">Approve</button>
-                            </form>
-                            <form action="/admin/delete/{{ posting.id }}" method="POST" style="display:inline;">
-                                <button class="btn btn-sm btn-delete">Delete</button>
+                            <form method="POST" action="/admin">
+                                <input type="hidden" name="job_id" value="{{ job.id }}">
+                                <button name="action" value="approve" class="btn btn-success btn-sm">Approve</button>
+                                <button name="action" value="delete" class="btn btn-danger btn-sm">Delete</button>
                             </form>
                         </td>
                     </tr>
@@ -132,25 +113,10 @@
                 </tbody>
             </table>
         </div>
-
-
-        <!-- No postings message -->
-        {% if postings|length == 0 %}
-        <div class="text-center">
-            <p class="lead">No job postings are pending review.</p>
-        </div>
-        {% endif %}
     </main>
-
-
-    <footer class="footer text-center py-3">
-        <div class="container">
-            <p class="mb-0">© 2025 Arizona College Prep High School Guidance Department</p>
-            <p class="credits">Created by: Ramin Ismail</p>
-        </div>
+    <footer class="text-center py-3" style="background-color: #582c7c; color: white;">
+        <p>&copy; 2025 Arizona College Prep High School Guidance Department</p>
     </footer>
-
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
