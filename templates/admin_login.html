@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -73,45 +74,26 @@
             </div>
         </div>
     </nav>
-
     <header class="text-center py-5" style="background-color: #582c7c; color: white;">
-        <h1>Admin Panel</h1>
+        <h1>Admin Login</h1>
     </header>
     <main class="container my-5">
-        <h2>Manage Job Postings</h2>
-        <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Job Title</th>
-                        <th>Location</th>
-                        <th>Company Name</th>
-                        <th>Employer Email</th>
-                        <th>Approved</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for job in jobs %}
-                    <tr>
-                        <td>{{ job.id }}</td>
-                        <td>{{ job.title }}</td>
-                        <td>{{ job.location }}</td>
-                        <td>{{ job.company }}</td>
-                        <td>{{ job.email }}</td>
-                        <td>{{ 'Yes' if job.is_approved else 'No' }}</td>
-                        <td>
-                            <form method="POST" action="/admin">
-                                <input type="hidden" name="job_id" value="{{ job.id }}">
-                                <button name="action" value="approve" class="btn btn-success btn-sm">Approve</button>
-                                <button name="action" value="delete" class="btn btn-danger btn-sm">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h2 class="text-center">Enter Admin Password</h2>
+                <form method="POST" action="/admin_login">
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter admin password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                </form>
+                {% if error %}
+                <div class="alert alert-danger mt-3" role="alert">
+                    {{ error }}
+                </div>
+                {% endif %}
+            </div>
         </div>
     </main>
     <footer class="text-center py-3" style="background-color: #582c7c; color: white;">
