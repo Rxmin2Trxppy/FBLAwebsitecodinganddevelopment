@@ -16,9 +16,9 @@
             const occupation = document.getElementById('occupation').value;
 
             const subject = `Job Application: ${name}`;
-            const body = `Name: ${name}` +
-                         `Phone: ${phone}` +
-                         `Skills: ${skills}` +
+            const body = `Name: ${name} \n` +
+                         `Phone: ${phone} \n` +
+                         `Skills: ${skills} \n` +
                          `Previous Occupations: ${occupation}`;
                          
             const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
