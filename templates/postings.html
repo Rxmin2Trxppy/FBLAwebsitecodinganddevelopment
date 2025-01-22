@@ -15,9 +15,16 @@
             --text-color: #343a40; /* Dark Grey */
         }
 
+        html, body{
+            height: 100%;
+            margin: 0;
+        }
+
         body {
+            display:flex;
             background-color: var(--background-color);
             color: var(--text-color);
+            flex-direction: column;
         }
 
         .navbar, .footer {
@@ -45,6 +52,16 @@
         .card-title {
             color: var(--primary-color);
         }
+
+        .footer {
+            background-color: var(--primary-color);
+            color:white;
+            padding: 10px;
+        }
+        main{
+            flex:1;
+        }
+
     </style>
     <link rel="icon" href="/static/images/743174.png"> <!-- Adding your image as favicon -->
 </head>
@@ -94,8 +111,14 @@
             {% endfor %}
         </div>
     </main>
-    <footer class="text-center py-3" style="background-color: #582c7c; color: white;">
-        <p>&copy; 2025 Arizona College Prep High School Guidance Department</p>
+    <footer class="footer text-center py-3">
+        <div class="container">
+            <p class="mb-0">© 2025 Arizona College Prep High School Guidance Department</p>
+            <p class="mb-0">Visit Us | 4477 S. Gilbert Rd. Chandler, AZ 85249</p>
+            <p class="mb-0">Reach Us | (480) 424-8700</p>
+            <a class="nav-link" href="https://www.cusd80.com/domain/4968">Counseling Department</a>
+            <p class="credits">Created by: Ramin Ismail & Vivan Chalasani</p>
+        </div>
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
